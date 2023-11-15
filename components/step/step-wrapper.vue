@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[360px] h-[360px] border-blue border bg-black rounded-md px-5 pt-6 pb-4 text-white flex flex-col shadow-step"
+    class="h-full md:h-auto max-w-full w-[360px] border-blue border bg-black rounded-md px-5 pt-6 pb-4 text-white flex flex-col shadow-step"
   >
     <div class="text-center">第{{ stepText }}步驟</div>
 
@@ -18,13 +18,19 @@
         {{ p }}
       </p>
     </div>
-    <div class="mt-3 flex flex-row justify-end">
-      <NuxtLink class="">
-        <img src="/img/triangle-step.svg" />
+    <div class="mt-5 mb-3 flex flex-row justify-center md:justify-end">
+      <NuxtLink :to="last">
+        <CommonTriangle
+          class="-rotate-90"
+          :class="last ? `drop-shadow-triangle` : 'opacity-75'"
+        />
       </NuxtLink>
 
-      <NuxtLink class="ml-3">
-        <img src="/img/triangle-step-next.svg" />
+      <NuxtLink class="ml-6" :to="next">
+        <CommonTriangle
+          class="rotate-90"
+          :class="next ? `drop-shadow-triangle` : 'opacity-75'"
+        />
       </NuxtLink>
     </div>
   </div>
@@ -39,6 +45,14 @@ const props = defineProps({
   paragraphs: {
     type: Array,
     default: () => [],
+  },
+  last: {
+    type: String,
+    default: "",
+  },
+  next: {
+    type: String,
+    default: "",
   },
 });
 

@@ -2,7 +2,7 @@
   <img
     :src="imgSrc"
     :class="active ? 'shadow-card' : ''"
-    class="rounded-[7px] max-h-[500px]"
+    class="rounded-[7px] max-h-[75vh] md:w-100 md:max-h-[50vh]"
   />
 </template>
 
