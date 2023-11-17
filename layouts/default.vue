@@ -3,7 +3,7 @@
     <CommonHeader />
 
     <div
-      class="flex-grow flex items-center justify-center overflow-hidden px-9 pb-9"
+      class="flex-grow flex items-center justify-center overflow-hidden px-9 py-9"
     >
       <slot />
     </div>

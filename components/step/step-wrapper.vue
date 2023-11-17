@@ -20,17 +20,11 @@
     </div>
     <div class="mt-5 mb-3 flex flex-row justify-center md:justify-end">
       <NuxtLink :to="last">
-        <CommonTriangle
-          class="-rotate-90"
-          :class="last ? `drop-shadow-triangle` : 'opacity-75'"
-        />
+        <BtnTriangle :disabled="!last" />
       </NuxtLink>
 
       <NuxtLink class="ml-6" :to="next">
-        <CommonTriangle
-          class="rotate-90"
-          :class="next ? `drop-shadow-triangle` : 'opacity-75'"
-        />
+        <BtnTriangle :disabled="!next" right />
       </NuxtLink>
     </div>
   </div>

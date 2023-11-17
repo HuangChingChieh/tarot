@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from "tailwindcss/plugin";
 const blue = "#4F75FF";
 const blueShaodw = `${blue}55`;
 export const colors = { blue, black: "#000" };
@@ -15,6 +16,10 @@ export default {
       boxShadow: {
         card: `0 0 25px 15px ${blueShaodw}, inset 0 0 25px 15px ${blueShaodw}`,
         step: `0 0 3.5px 3px ${blueShaodw}, inset 0 0 3.5px 3px ${blueShaodw}`,
+        category: `0 0 4px 4px ${blueShaodw}`,
+      },
+      textShadow: {
+        DEFAULT: `0 0 4px ${blue}`,
       },
       dropShadow: {
         triangle: [
@@ -25,6 +30,26 @@ export default {
       },
     },
   },
-  plugins: [],
-  safelist: ["shadow-card", "shadow-step", "h-full", "drop-shadow-triangle"],
+  plugins: [
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          "text-shadow": (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
+      );
+    }),
+  ],
+  safelist: [
+    // "shadow-card",
+    // "shadow-step",
+    // "shadow-category",
+    // "h-full",
+    // "drop-shadow-triangle",
+    "opcaity-0",
+    "scale-90",
+    "scale-95",
+  ],
 };

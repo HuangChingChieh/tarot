@@ -41,7 +41,7 @@ const points = computed(
 const polygonStyle = computed(() => {
   const { fill, stroke, strokeWidth } = props;
   return {
-    fill: fill ? blue : "transparent",
+    fill: fill ? blue : "black",
     stroke: stroke || blue,
     strokeWidth,
   };
