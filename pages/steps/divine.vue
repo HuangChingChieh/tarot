@@ -1,8 +1,7 @@
 <template>
-  <div class="w-full max-w-screen-md">
+  <div v-if="category" class="w-full max-w-screen-md">
     <div class="relative md:px-8">
       <swiper
-        v-model="indexNow"
         ref="swiper"
         effect="cards"
         :modules="[EffectCards]"
@@ -30,54 +29,53 @@
           v-slot="{ isActive }"
           class="py-6 px-4"
         >
-          <CardTarot :active="isActive" class="bg-black mx-auto"
-        /></swiper-slide>
+          <CardTarot
+            :active="isActive"
+            class="bg-black mx-auto transition-opacity cursor-pointer"
+            :class="{ 'opacity-0': selected && !isActive }"
+            @click.native="clickCard"
+          />
+        </swiper-slide>
       </swiper>
 
       <div class="hidden md:block">
         <BtnTriangle
           :disabled="indexNow === 0"
-          class="absolute left-0 top-1/2 z-10"
+          class="absolute left-0 top-1/2 z-10 transition-opacity"
           @click.native="slidePrev"
           :side-length="32"
+          :class="{ 'opacity-0': selected }"
         />
 
         <BtnTriangle
           :disabled="indexNow === numberOfCards - 1"
           right
-          class="absolute right-0 top-1/2 z-10"
+          class="absolute right-0 top-1/2 z-10 transition-opacity"
           @click.native="slideNext"
           :side-length="32"
+          :class="{ 'opacity-0': selected }"
         />
       </div>
     </div>
 
-    <NuxtLink
-      class="text-white flex items-center justify-center flex-col"
-      to="/steps"
-    >
-      <div class="pt-8 pb-2.5">
-        <CommonTriangle fill />
-      </div>
-
-      <span class="block">請選擇一張牌</span>
-    </NuxtLink>
+    <CardHint @click="clickCard">{{
+      selected ? "再次點擊確認" : "請選擇一張牌"
+    }}</CardHint>
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { EffectCards } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
-export default defineComponent({
-  name: "Basic",
+export default defineNuxtComponent({
   components: {
     Swiper,
     SwiperSlide,
   },
+
   data() {
     const numberOfCards = 10;
     const initialSlide = Math.ceil(numberOfCards / 2);
@@ -87,21 +85,26 @@ export default defineComponent({
       initialSlide: initialSlide,
       EffectCards,
       swiper: null,
+      selectedIndex: -1,
+      category: null,
     };
   },
-  methods: {
-    isCardHide(index) {
-      return index < 2 || index >= this.numberOfCards - 2;
+  computed: {
+    selected() {
+      return this.selectedIndex >= 0;
     },
-    cardClass(index) {
-      const isCardHide = this.isCardHide(index);
-      const { indexNow } = this;
-
-      return {
-        // "opacity-0": isCardHide,
-        // "scale-90": Math.abs(indexNow - index) === 2,
-        // "scale-95": Math.abs(indexNow - index) === 1,
-      };
+  },
+  methods: {
+    clickCard() {
+      if (!this.selected) {
+        history.pushState("CARD_NOT_SELECTED", "");
+        this.selectedIndex = this.indexNow;
+        this.swiper.disable();
+        history.pushState("CARD_SELECTED", "");
+      } else {
+        const index = Math.round(Math.random(0, 1) * 21);
+        this.$router.push(`/results/${index}`);
+      }
     },
     slidePrev() {
       const { swiper } = this;
@@ -111,6 +114,23 @@ export default defineComponent({
       const { swiper } = this;
       if (swiper) swiper.slideNext();
     },
+  },
+  setup() {
+    definePageMeta({
+      middleware: ["check-category"],
+    });
+  },
+  created() {
+    if (process.client) this.category = window.localStorage.category;
+  },
+  mounted() {
+    if (process.client)
+      window.addEventListener("popstate", ({ state }) => {
+        if (state === "CARD_NOT_SELECTED") {
+          this.selectedIndex = -1;
+          this.swiper.enable();
+        }
+      });
   },
 });
 </script>

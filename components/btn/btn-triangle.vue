@@ -1,12 +1,14 @@
 <template>
-  <CommonTriangle
-    class="-rotate-90 cursor-pointer transition-all"
-    :class="classObj"
-    :side-length="sideLength"
-    :fill="fill"
-    :stroke="stroke"
-    :strokeWidth="strokeWidth"
-  />
+  <div>
+    <CommonTriangle
+      class="-rotate-90 cursor-pointer transition-all"
+      :class="classObj"
+      :side-length="sideLength"
+      :fill="fill"
+      :stroke="stroke"
+      :strokeWidth="strokeWidth"
+    />
+  </div>
 </template>
 
 <script setup>
