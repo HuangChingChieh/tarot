@@ -1,30 +1,31 @@
 <template>
   <div>
     <StepCategory
-      category="整體運勢"
+      :category="categories.whole"
       class="-rotate-[20.151deg] -translate-x-1/3 md:-translate-x-3/4"
-      @click="setCategory('整體運勢')"
+      @click="setCategory('whole')"
     />
     <StepCategory
-      category="工作學業"
+      :category="categories.work"
       class="rotate-[35.024deg] translate-x-full md:translate-x-[125%] translate-y-1/3"
-      @click="setCategory('工作學業')"
+      @click="setCategory('work')"
     />
     <StepCategory
-      category="感情發展"
+      :category="categories.love"
       class="-rotate-[19.224deg] -translate-x-full md:-translate-x-[125%]"
-      @click="setCategory('感情發展')"
+      @click="setCategory('love')"
     />
   </div>
 </template>
 
 <script setup>
 const router = useRouter();
+const categories = categoryMap();
 
 const setCategory = async (category = "") => {
   if (window && category) {
     window.localStorage.setItem("category", category);
-    await router.push(`/steps/divine/`);
+    await router.replace(`/steps/divine/`);
   }
 };
 </script>

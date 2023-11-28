@@ -1,5 +1,5 @@
 <template>
-  <div v-if="category" class="w-full max-w-screen-md">
+  <div v-show="category" class="w-full max-w-screen-md">
     <div class="relative md:px-8">
       <swiper
         ref="swiper"
@@ -75,7 +75,6 @@ export default defineNuxtComponent({
     Swiper,
     SwiperSlide,
   },
-
   data() {
     const numberOfCards = 10;
     const initialSlide = Math.ceil(numberOfCards / 2);
@@ -97,13 +96,13 @@ export default defineNuxtComponent({
   methods: {
     clickCard() {
       if (!this.selected) {
-        history.pushState("CARD_NOT_SELECTED", "");
         this.selectedIndex = this.indexNow;
         this.swiper.disable();
-        history.pushState("CARD_SELECTED", "");
       } else {
-        const index = Math.round(Math.random(0, 1) * 21);
-        this.$router.push(`/results/${index}`);
+        const sn = Math.round(Math.random(0, 1) * 21);
+        const position = Math.round(Math.random(0, 1));
+
+        this.$router.replace(`/results/${this.category}_${sn}_${position}`);
       }
     },
     slidePrev() {
@@ -115,22 +114,12 @@ export default defineNuxtComponent({
       if (swiper) swiper.slideNext();
     },
   },
-  setup() {
-    definePageMeta({
-      middleware: ["check-category"],
-    });
-  },
   created() {
-    if (process.client) this.category = window.localStorage.category;
-  },
-  mounted() {
-    if (process.client)
-      window.addEventListener("popstate", ({ state }) => {
-        if (state === "CARD_NOT_SELECTED") {
-          this.selectedIndex = -1;
-          this.swiper.enable();
-        }
-      });
+    if (process.client) {
+      const { category } = window.localStorage;
+      if (category) this.category = category;
+      else this.$router.replace("/");
+    }
   },
 });
 </script>

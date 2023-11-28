@@ -19,11 +19,11 @@
       </p>
     </div>
     <div class="mt-5 mb-3 flex flex-row justify-center md:justify-end">
-      <NuxtLink :to="last">
+      <NuxtLink :to="last" replace>
         <BtnTriangle :disabled="!last" />
       </NuxtLink>
 
-      <NuxtLink class="ml-6" :to="next">
+      <NuxtLink class="ml-6" :to="next" replace>
         <BtnTriangle :disabled="!next" right />
       </NuxtLink>
     </div>

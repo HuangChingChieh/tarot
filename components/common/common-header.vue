@@ -5,6 +5,7 @@
     <NuxtLink
       to="/"
       class="w-10 h-10 flex items-center justify-center border border-blue rounded-full shadow-category"
+      replace
       ><img src="/img/home.png" width="40"
     /></NuxtLink>
     <button
