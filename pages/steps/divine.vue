@@ -22,12 +22,13 @@
             swiper = swiperInstance;
           }
         "
+        class="md:mask-image mask-image-sm"
       >
         <swiper-slide
           v-for="slide in numberOfCards"
           :key="slide"
           v-slot="{ isActive }"
-          class="py-6 px-4"
+          class="py-6"
         >
           <CardTarot
             :active="isActive"
@@ -39,28 +40,45 @@
       </swiper>
 
       <div class="hidden md:block">
-        <BtnTriangle
-          :disabled="indexNow === 0"
-          class="absolute left-0 top-1/2 z-10 transition-opacity"
-          @click.native="slidePrev"
-          :side-length="32"
-          :class="{ 'opacity-0': selected }"
-        />
+        <Transition name="page">
+          <BtnTriangle
+            v-if="!selected"
+            :disabled="indexNow === 0"
+            class="absolute left-0 top-1/2 z-10 transition-opacity"
+            @click.native="slidePrev"
+            :side-length="32"
+          />
+        </Transition>
 
-        <BtnTriangle
-          :disabled="indexNow === numberOfCards - 1"
-          right
-          class="absolute right-0 top-1/2 z-10 transition-opacity"
-          @click.native="slideNext"
-          :side-length="32"
-          :class="{ 'opacity-0': selected }"
-        />
+        <Transition name="page">
+          <BtnTriangle
+            v-if="!selected"
+            :disabled="indexNow === numberOfCards - 1"
+            right
+            class="absolute right-0 top-1/2 z-10 transition-opacity"
+            @click.native="slideNext"
+            :side-length="32"
+          />
+        </Transition>
       </div>
     </div>
 
-    <CardHint @click="clickCard">{{
-      selected ? "再次點擊確認" : "請選擇一張牌"
-    }}</CardHint>
+    <div class="text-center relative">
+      <CardHint @click="clickCard" class="-mt-6"
+        >{{ selected ? "再次點擊確認" : "請選擇一張牌" }}
+      </CardHint>
+
+      <Transition name="page">
+        <button
+          v-if="selected"
+          type="button"
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 text-white border border-blue shadow-step text-sm rounded-[5px] bg-black"
+          @click="cancelSelect"
+        >
+          重新選擇
+        </button>
+      </Transition>
+    </div>
   </div>
 </template>
 
@@ -113,6 +131,10 @@ export default defineNuxtComponent({
       const { swiper } = this;
       if (swiper) swiper.slideNext();
     },
+    cancelSelect() {
+      this.selectedIndex = -1;
+      this.swiper.enable();
+    },
   },
   created() {
     if (process.client) {
@@ -123,15 +145,3 @@ export default defineNuxtComponent({
   },
 });
 </script>
-
-<style lang="scss">
-.swiper {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 30% 70%,
-    transparent
-  );
-  mask-image: linear-gradient(to right, transparent, black, transparent);
-}
-</style>

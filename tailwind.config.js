@@ -21,6 +21,10 @@ export default {
       textShadow: {
         DEFAULT: `0 0 4px ${blue}`,
       },
+      maskImage: {
+        DEFAULT: `linear-gradient(to right, transparent, black 30% 70%, transparent)`,
+        sm: `linear-gradient(to right, transparent, black 10% 90%, transparent)`,
+      },
       dropShadow: {
         triangle: [
           `0 0 2px ${blueShaodw}`,
@@ -39,6 +43,15 @@ export default {
           }),
         },
         { values: theme("textShadow") }
+      );
+
+      matchUtilities(
+        {
+          "mask-image": (value) => ({
+            maskImage: value,
+          }),
+        },
+        { values: theme("maskImage") }
       );
     }),
   ],

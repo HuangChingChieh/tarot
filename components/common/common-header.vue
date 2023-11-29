@@ -8,12 +8,16 @@
       replace
       ><img src="/img/home.png" width="40"
     /></NuxtLink>
-    <button
-      type="button"
-      class="w-10 h-10 flex items-center justify-center text-blue border border-blue rounded-full shadow-category text-shadow ml-4"
-      @click="$router.go(-1)"
-    >
-      ←
-    </button>
+
+    <Transition name="page">
+      <button
+        v-if="$route.path !== '/'"
+        type="button"
+        class="w-10 h-10 flex items-center justify-center text-blue border border-blue rounded-full shadow-category text-shadow ml-4"
+        @click="$router.go(-1)"
+      >
+        ←
+      </button>
+    </Transition>
   </header>
 </template>

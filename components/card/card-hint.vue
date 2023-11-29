@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-white flex items-center justify-center flex-col cursor-pointer"
+    class="text-white flex items-center justify-center flex-col cursor-pointer animate-pulse"
     @click="$emit('click')"
   >
     <div class="pt-8 pb-2.5">

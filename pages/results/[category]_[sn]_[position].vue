@@ -1,24 +1,26 @@
 <template>
-  <div
+  <CommonBody
     v-show="categoryClient"
     class="flex flex-col items-center justify-center"
   >
     <div class="text-white text-2xl font-black text-center mb-9">
       {{ title }}
     </div>
-    <div class="flex-grow-1 h-full">
+    <div class="flex-grow-1">
       <CardTarot
         :sn="sn"
-        class="h-full"
         :class="{ 'rotate-180': position === '0' }"
         active
+        @click.native="showDetail"
       />
     </div>
 
     <CardHint>點圖看詳細說明</CardHint>
 
-    {{ description }}
-  </div>
+    <ModalCommon v-model="modalOpen">
+      <div class="text-white">{{ description }}</div>
+    </ModalCommon>
+  </CommonBody>
 </template>
 
 <script setup>
@@ -31,14 +33,18 @@ const { data } = await useAsyncData("card-results", () =>
     .find()
 );
 
+const modalOpen = ref(false);
+
+const theCard = computed(() => data?.value?.[0]);
+
 const title = computed(() => {
-  let title = data?.value?.[0]?.title || "";
+  let title = theCard?.value?.title || "";
   if (position === "0" && title) title += "逆位";
   return title;
 });
 
 const description = computed(
-  () => data?.value?.[0]?.[category]?.[position] || ""
+  () => theCard?.value?.[category]?.[position] || ""
 );
 
 const categoryClient = ref("");
@@ -51,5 +57,9 @@ if (process.client) {
     const router = useRouter();
     router.replace("/");
   }
+}
+
+function showDetail() {
+  modalOpen.value = true;
 }
 </script>
