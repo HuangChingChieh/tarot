@@ -10,8 +10,8 @@ export default {
     extend: {
       colors,
       backgroundImage: {
-        "global-1": "url('/img/BG_1.png')",
-        "global-2": "url('/img/BG_2.png')",
+        "global-1": "url('/img/bg_1.png')",
+        "global-2": "url('/img/bg_2.png')",
       },
       boxShadow: {
         card: `0 0 25px 15px ${blueShaodw}, inset 0 0 25px 15px ${blueShaodw}`,
