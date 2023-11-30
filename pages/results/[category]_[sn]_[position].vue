@@ -24,19 +24,26 @@
 </template>
 
 <script setup>
+const categoryClient = ref("");
+// 檢查是否有選類別
+if (process.client) {
+  categoryClient.value = window.localStorage.category;
+  window.localStorage.removeItem("category");
+
+  if (!categoryClient.value) {
+    const router = useRouter();
+    router.replace("/");
+  }
+}
+
 const { sn, category, position } = useRoute().params;
 
-const { data } = await useAsyncData(
-  `card_result_${sn}`,
-  () =>
-    queryContent("card", "results")
-      .only(["title", category])
-      .where({ _path: `/card/results/${sn}` })
-      .find(),
-  { watch: [sn, category, position] }
+const { data } = await useAsyncData(`card_result_${sn}`, () =>
+  queryContent("card", "results")
+    .only(["title", category])
+    .where({ _path: `/card/results/${sn}` })
+    .find()
 );
-
-const modalOpen = ref(false);
 
 const theCard = computed(() => data?.value?.[0]);
 
@@ -50,17 +57,7 @@ const description = computed(
   () => theCard?.value?.[category]?.[position] || ""
 );
 
-const categoryClient = ref("");
-// 檢查是否有選類別
-if (process.client) {
-  categoryClient.value = window.localStorage.category;
-  window.localStorage.removeItem("category");
-
-  if (!categoryClient.value) {
-    const router = useRouter();
-    router.replace("/");
-  }
-}
+const modalOpen = ref(false);
 
 function showDetail() {
   modalOpen.value = true;

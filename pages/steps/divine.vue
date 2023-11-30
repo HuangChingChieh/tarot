@@ -1,6 +1,6 @@
 <template>
-  <div v-show="category" class="w-full max-w-screen-md">
-    <div class="relative md:px-8">
+  <div class="w-full max-w-screen-md">
+    <div v-show="category" class="relative md:px-8">
       <swiper
         ref="swiper"
         effect="cards"
@@ -63,8 +63,8 @@
       </div>
     </div>
 
-    <div class="text-center relative">
-      <CardHint @click="clickCard" class="-mt-6"
+    <div v-show="category" class="text-center relative">
+      <CardHint class="-mt-6"
         >{{ selected ? "再次點擊確認" : "請選擇一張牌" }}
       </CardHint>
 
@@ -94,16 +94,16 @@ export default defineNuxtComponent({
     SwiperSlide,
   },
   data() {
-    const numberOfCards = 10;
+    const numberOfCards = 22;
     const initialSlide = Math.ceil(numberOfCards / 2);
     return {
       indexNow: initialSlide,
       numberOfCards,
-      initialSlide: initialSlide,
+      initialSlide,
       EffectCards,
       swiper: null,
       selectedIndex: -1,
-      category: null,
+      category: process.client ? window.localStorage.category || "" : "",
     };
   },
   computed: {
@@ -137,10 +137,8 @@ export default defineNuxtComponent({
     },
   },
   created() {
-    if (process.client) {
-      const { category } = window.localStorage;
-      if (category) this.category = category;
-      else this.$router.replace("/");
+    if (process.client && !window.localStorage.category) {
+      this.$router.replace("/");
     }
   },
 });
