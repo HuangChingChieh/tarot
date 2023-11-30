@@ -1,6 +1,6 @@
 <template>
   <div class="w-full max-w-screen-md">
-    <div v-show="category" class="relative md:px-8">
+    <div class="relative md:px-8">
       <swiper
         ref="swiper"
         effect="cards"
@@ -94,7 +94,7 @@ export default defineNuxtComponent({
     SwiperSlide,
   },
   data() {
-    const numberOfCards = 22;
+    const numberOfCards = 10;
     const initialSlide = Math.ceil(numberOfCards / 2);
     return {
       indexNow: initialSlide,
@@ -113,6 +113,8 @@ export default defineNuxtComponent({
   },
   methods: {
     clickCard() {
+      if (!this.category) return;
+
       if (!this.selected) {
         this.selectedIndex = this.indexNow;
         this.swiper.disable();
