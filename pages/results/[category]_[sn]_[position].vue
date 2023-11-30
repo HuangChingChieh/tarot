@@ -26,11 +26,14 @@
 <script setup>
 const { sn, category, position } = useRoute().params;
 
-const { data } = await useAsyncData("card-results", () =>
-  queryContent("card", "results")
-    .only(["title", category])
-    .where({ _path: `/card/results/${sn}` })
-    .find()
+const { data } = await useAsyncData(
+  "card-results",
+  () =>
+    queryContent("card", "results")
+      .only(["title", category])
+      .where({ _path: `/card/results/${sn}` })
+      .find(),
+  { watch: [sn, category, position] }
 );
 
 const modalOpen = ref(false);
