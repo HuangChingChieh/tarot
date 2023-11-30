@@ -44,9 +44,9 @@ $duration-top: 1.3s;
 $duration-bottom: 1.7s;
 
 $keyframe-scale: 4;
-$keyframe-percentage-start: (60 / $keyframe-scale) + 0%;
-$keyframe-percentage-end: (64 / $keyframe-scale) + 0%;
-$keyframe-percentage-gutter: (64 - 60) / (2 * $keyframe-scale) + 0%;
+$keyframe-percentage-start: calc(60 / $keyframe-scale) + 0%;
+$keyframe-percentage-end: calc(64 / $keyframe-scale) + 0%;
+$keyframe-percentage-gutter: calc((64 - 60) / (2 * $keyframe-scale)) + 0%;
 
 .glitch {
   animation: glitch $duration-whole * $keyframe-scale linear infinite;

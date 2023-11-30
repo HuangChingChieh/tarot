@@ -9,12 +9,12 @@
       <StepCategory
         :category="categories.work"
         class="rotate-[35.024deg] translate-x-full md:translate-x-[125%] translate-y-1/3"
-        @click="setCategory('work')"
+        dsiabled
       />
       <StepCategory
         :category="categories.love"
         class="-rotate-[19.224deg] -translate-x-full md:-translate-x-[125%]"
-        @click="setCategory('love')"
+        dsiabled
       />
     </div>
   </CommonBody>

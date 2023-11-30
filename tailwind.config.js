@@ -55,14 +55,4 @@ export default {
       );
     }),
   ],
-  safelist: [
-    // "shadow-card",
-    // "shadow-step",
-    // "shadow-category",
-    // "h-full",
-    // "drop-shadow-triangle",
-    "opcaity-0",
-    "scale-90",
-    "scale-95",
-  ],
 };
