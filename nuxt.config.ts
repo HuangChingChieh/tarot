@@ -72,9 +72,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  nitro: {
-    prerender: {
-      routes,
-    },
+  generate: {
+    routes,
   },
 });
