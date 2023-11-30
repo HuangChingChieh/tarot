@@ -27,7 +27,7 @@
 const { sn, category, position } = useRoute().params;
 
 const { data } = await useAsyncData(
-  "card-results",
+  `card_result_${sn}`,
   () =>
     queryContent("card", "results")
       .only(["title", category])

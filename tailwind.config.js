@@ -10,7 +10,7 @@ export default {
     extend: {
       colors,
       backgroundImage: {
-        "global-1": "url('/img/bg_1.png')",
+        "global-1": "url('/img/bg_1.jpg')",
         "global-2": "url('/img/bg_2.png')",
       },
       boxShadow: {

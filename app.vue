@@ -2,7 +2,7 @@
   <div class="fixed top-0 left-0 w-full h-full">
     <div class="relative w-full h-full">
       <div
-        class="absolute top-0 left-0 w-full h-full bg-[url('/img/bg_1.png')] bg-center bg-repeat bg-cover"
+        class="absolute top-0 left-0 w-full h-full bg-[url('/img/bg_1.jpg')] bg-center bg-repeat bg-cover"
       >
         <div class="glitch absolute top-0 left-0 w-full h-full">
           <div
