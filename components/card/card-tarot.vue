@@ -20,7 +20,8 @@ const props = defineProps({
   },
 });
 
-const imgSrc = computed(() => `/img/card/${props.sn}.png`);
+const { basePath } = useRuntimeConfig().public;
+const imgSrc = computed(() => `${basePath}img/card/${props.sn}.png`);
 </script>
 
 <style lang="scss">

@@ -10,13 +10,20 @@ Object.keys(categories).forEach((category) => {
   }
 });
 
-const basePath = "https://huangchingchieh.github.io/tarot";
+const baseURL = "/tarot/";
+const basePath = `https://huangchingchieh.github.io${baseURL}`;
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/content"],
+  runtimeConfig: {
+    // Public keys that are exposed to the client
+    public: {
+      basePath,
+    },
+  },
   app: {
-    baseURL: "/tarot/",
+    baseURL,
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: {
       name: "page",
@@ -45,7 +52,7 @@ export default defineNuxtConfig({
         },
         {
           property: "og:image",
-          content: `/img/og-image.png`,
+          content: `${basePath}img/og-image.png`,
         },
         {
           property: "og:description",
