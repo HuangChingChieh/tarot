@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full md:h-auto max-w-full w-[360px] border-blue border bg-black rounded-md px-5 pt-6 pb-4 text-white flex flex-col shadow-step"
+    class="h-full max-h-[75vh] md:h-auto max-w-full w-[360px] border-blue border bg-black rounded-md px-5 pt-6 pb-4 text-white flex flex-col shadow-step"
   >
     <div class="text-center">第{{ stepText }}步驟</div>
 
