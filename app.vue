@@ -1,4 +1,6 @@
 <template>
+  <VitePwaManifest />
+
   <div class="fixed top-0 left-0 w-full h-full">
     <div class="relative w-full h-full">
       <div
