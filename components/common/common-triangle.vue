@@ -9,7 +9,7 @@
   </svg>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { colors } from "~/tailwind.config";
 const { blue } = colors;
 

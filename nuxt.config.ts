@@ -2,8 +2,7 @@
 import categoryMap from "./utils/category-map";
 const routes = new Array();
 
-const categories = categoryMap();
-Object.keys(categories).forEach((category) => {
+Object.keys(categoryMap).forEach((category) => {
   for (let i = 0; i <= 21; i++) {
     routes.push(`/results/${category}_${i}_0`);
     routes.push(`/results/${category}_${i}_1`);

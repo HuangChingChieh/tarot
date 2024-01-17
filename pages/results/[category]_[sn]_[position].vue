@@ -8,7 +8,7 @@
     </div>
     <div class="flex-grow-1">
       <CardTarot
-        :sn="sn"
+        :sn="theSn"
         :class="{ 'rotate-180': position === '0' }"
         active
         @click.native="showDetail"
@@ -23,7 +23,7 @@
   </CommonBody>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const categoryClient = ref("");
 // 檢查是否有選類別
 if (process.client) {
@@ -38,9 +38,13 @@ if (process.client) {
 
 const { sn, category, position } = useRoute().params;
 
+const theCategory = typeof category === "string" ? category : category[0];
+const thePosition = typeof position === "string" ? position : position[0];
+const theSn = typeof sn === "string" ? sn : sn[0];
+
 const { data } = await useAsyncData(`card_result_${sn}`, () =>
   queryContent("card", "results")
-    .only(["title", category])
+    .only(["title", theCategory])
     .where({ _path: `/card/results/${sn}` })
     .find()
 );
@@ -49,12 +53,12 @@ const theCard = computed(() => data?.value?.[0]);
 
 const title = computed(() => {
   let title = theCard?.value?.title || "";
-  if (position === "0" && title) title += "逆位";
+  if (thePosition === "0" && title) title += "逆位";
   return title;
 });
 
 const description = computed(
-  () => theCard?.value?.[category]?.[position] || ""
+  () => theCard?.value?.[theCategory]?.[thePosition] || ""
 );
 
 const modalOpen = ref(false);

@@ -13,12 +13,12 @@
         }"
         :initial-slide="initialSlide"
         @slideChange="
-          (swiper) => {
+          (swiper:SwiperType) => {
             indexNow = swiper.realIndex;
           }
         "
         @swiper="
-          (swiperInstance) => {
+          (swiperInstance:SwiperType) => {
             swiper = swiperInstance;
           }
         "
@@ -82,7 +82,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import type { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { EffectCards } from "swiper/modules";
 import "swiper/css";
@@ -96,12 +97,14 @@ export default defineNuxtComponent({
   data() {
     const numberOfCards = 10;
     const initialSlide = Math.ceil(numberOfCards / 2);
+    const swiper: SwiperType | undefined = undefined;
+
     return {
       indexNow: initialSlide,
       numberOfCards,
       initialSlide,
       EffectCards,
-      swiper: null,
+      swiper,
       selectedIndex: -1,
       category: process.client ? window.localStorage.category || "" : "",
     };
@@ -117,25 +120,29 @@ export default defineNuxtComponent({
 
       if (!this.selected) {
         this.selectedIndex = this.indexNow;
-        this.swiper.disable();
+
+        const { swiper } = this;
+        if (swiper) (swiper as SwiperType).disable();
       } else {
-        const sn = Math.round(Math.random(0, 1) * 21);
-        const position = Math.round(Math.random(0, 1));
+        const sn = Math.round(Math.random() * 21);
+        const position = Math.round(Math.random());
 
         this.$router.replace(`/results/${this.category}_${sn}_${position}`);
       }
     },
     slidePrev() {
       const { swiper } = this;
-      if (swiper) swiper.slidePrev();
+      if (swiper) (swiper as SwiperType).slidePrev();
     },
     slideNext() {
       const { swiper } = this;
-      if (swiper) swiper.slideNext();
+      if (swiper) (swiper as SwiperType).slideNext();
     },
     cancelSelect() {
       this.selectedIndex = -1;
-      this.swiper.enable();
+
+      const { swiper } = this;
+      if (swiper) (swiper as SwiperType).enable();
     },
   },
   created() {

@@ -2,17 +2,17 @@
   <CommonBody>
     <div>
       <StepCategory
-        :category="categories.whole"
+        :category="categoryMap.whole"
         class="-rotate-[20.151deg] -translate-x-1/3 md:-translate-x-3/4"
         @click="setCategory('whole')"
       />
       <StepCategory
-        :category="categories.work"
+        :category="categoryMap.work"
         class="rotate-[35.024deg] translate-x-full md:translate-x-[125%] translate-y-1/3"
         dsiabled
       />
       <StepCategory
-        :category="categories.love"
+        :category="categoryMap.love"
         class="-rotate-[19.224deg] -translate-x-full md:-translate-x-[125%]"
         dsiabled
       />
@@ -20,9 +20,10 @@
   </CommonBody>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import categoryMap from "~/utils/category-map";
+
 const router = useRouter();
-const categories = categoryMap();
 
 const setCategory = (category = "") => {
   if (window && category) {

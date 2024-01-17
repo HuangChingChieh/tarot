@@ -28,6 +28,6 @@
   </CommonBody>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const welcomeModal = ref(true);
 </script>

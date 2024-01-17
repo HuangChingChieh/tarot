@@ -6,9 +6,7 @@
   />
 </template>
 
-<script setup>
-import { computed } from "vue";
-
+<script setup lang="ts">
 const props = defineProps({
   sn: {
     type: [String, Number],

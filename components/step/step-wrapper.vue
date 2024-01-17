@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   step: {
     type: [String, Number],
@@ -50,5 +50,7 @@ const props = defineProps({
   },
 });
 
-const stepText = computed(() => ["一", "二", "三"][props.step - 1]);
+const steps: readonly string[] = ["一", "二", "三"];
+
+const stepText = computed(() => steps[Number(props.step) - 1]);
 </script>
