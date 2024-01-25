@@ -1,1 +1,0 @@
-import{_ as t,o as s,c,s as n}from"./entry.0DeI9Y99.js";const o={},r={class:"px-9 py-9 w-full h-full flex items-center justify-center"};function _(e,l){return s(),c("div",r,[n(e.$slots,"default")])}const f=t(o,[["render",_]]);export{f as _};
